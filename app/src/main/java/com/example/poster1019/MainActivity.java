@@ -9,6 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -42,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
 
     private int currentPageId = R.id.nav_main;
+
+    private PosterRepository posterRepository;
+    private final PosterRepository.FavoritesListener favoritesBadgeListener = this::updateFavoritesBadge;
+
+    private void updateFavoritesBadge() {
+
+        int count = posterRepository.getFavoriteCount();
+        BadgeDrawable badge = bottomNavigation.getOrCreateBadge(R.id.nav_favorites);
+        badge.setBackgroundColor(ContextCompat.getColor(this, R.color.colorBadge));
+        badge.setBadgeTextColor(ContextCompat.getColor(this, R.color.colorTextIcons));
+        badge.setNumber(count);
+        badge.setVisible(count > 0);
+    }
 
 
     @Override
@@ -106,6 +121,17 @@ public class MainActivity extends AppCompatActivity {
             currentPageId = savedInstanceState.getInt(KEY_CURRENT_PAGE, R.id.nav_main);
         }
         showPage(currentPageId);
+
+        //Favorites badge: show the current count now, then follow every change.
+        posterRepository = PosterRepository.getInstance(this);
+        posterRepository.addFavoritesListener(favoritesBadgeListener);
+        updateFavoritesBadge();
+    }
+
+    @Override
+    protected void onDestroy() {
+        posterRepository.removeFavoritesListener(favoritesBadgeListener);
+        super.onDestroy();
     }
 
     //Remember the current page, so a rotation doesn't jump back to the Main Page.

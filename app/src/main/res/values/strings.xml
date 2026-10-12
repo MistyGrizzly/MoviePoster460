@@ -20,4 +20,16 @@
     <string name="no_email_app">No email app found</string>
 
 
+    <plurals name="favorites_added">
+        <item quantity="one">Added %d movie to Favorite List</item>
+        <item quantity="other">Added %d movies to Favorite List</item>
+    </plurals>
+    <string name="favorites_already_added">Already in your Favorite List</string>
+    <plurals name="favorites_count">
+        <item quantity="one">%d movie</item>
+        <item quantity="other">%d movies</item>
+    </plurals>
+    <string name="favorites_empty">No favorites yet. Select posters on the main page and tap Add To Watchlist.</string>
+    <string name="remove_favorite">Remove from favorites</string>
+
 </resources>

@@ -18,6 +18,30 @@ import java.util.List;
 
 public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersViewHolder> {
 
+    //  The same adapter and card layout are used on two pages.
+    // SELECT   = Main Page: tap a card to select it (orange border + checkmark).
+    // FAVORITE = Favorite List: cards can't be selected; each has a remove button.
+    public enum Mode { SELECT, FAVORITE }
+
+    //  Called when the remove button on a Favorite List card is tapped.
+    public interface OnRemoveFavoriteListener {
+        void onRemoveFavorite(Posters poster);
+    }
+
+    // Which page this adapter is for, and who handles "remove".
+    private Mode mode = Mode.SELECT;
+    private OnRemoveFavoriteListener removeFavoriteListener;
+
+    public PostersAdapter(List<Posters> posters, OnRemoveFavoriteListener removeFavoriteListener) {
+        this.posters = posters;
+        this.mode = Mode.FAVORITE;
+        this.removeFavoriteListener = removeFavoriteListener;
+    }
+
+    public void setPosters(List<Posters> posters) {
+        this.posters = posters;
+        notifyDataSetChanged();
+    }
 
     private List<Posters> posters;
     private posterListener posterListener;
@@ -65,6 +89,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
         TextView textName,textCreatedBy, textStory;
         RatingBar ratingBar;
         ImageView imageSelected;
+        ImageView imageRemove;
 
         public PostersViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +101,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
             textStory = itemView.findViewById(R.id.textStory);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             imageSelected = itemView.findViewById(R.id.imageSelected);
+            imageRemove = itemView.findViewById(R.id.imageRemove);
         }
 
         void bindPosters(final Posters posters){
@@ -84,6 +110,12 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
             textStory.setText(posters.story);
             textCreatedBy.setText(posters.createdBy);
             ratingBar.setRating(posters.rating);
+
+            if(mode == Mode.FAVORITE){
+                bindFavorite(posters);
+                return;
+            }
+            imageRemove.setVisibility(View.GONE);
 
             // show whether the poster is selected
             if(posters.isSelected){
@@ -113,7 +145,24 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
                 }
             });
 
+        }
 
+        // A Favorite List card: always the plain background and no checkmark (the
+        // poster may still be selected on the Main Page, but that doesn't apply here), no
+        // tap action, and a remove button that reports which poster to remove.
+        private void bindFavorite(final Posters posters){
+            viewbackground.setBackgroundResource(R.drawable.poster_background);
+            imageSelected.setVisibility(View.GONE);
+            layoutPosters.setOnClickListener(null);
+            layoutPosters.setClickable(false);
+
+            imageRemove.setVisibility(View.VISIBLE);
+            imageRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeFavoriteListener.onRemoveFavorite(posters);
+                }
+            });
         }
     }
 }

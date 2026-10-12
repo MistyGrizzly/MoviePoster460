@@ -18,6 +18,8 @@ public class PostersFragment extends Fragment implements posterListener {
 
     private Button buttonAddtoWatchList;
 
+    private PosterRepository posterRepository;
+
     public PostersFragment(){
         super(R.layout.fragment_posters);
     }
@@ -29,44 +31,17 @@ public class PostersFragment extends Fragment implements posterListener {
         RecyclerView posterRecyclerView = view.findViewById(R.id.posTersRecyclerView);
         buttonAddtoWatchList  = view.findViewById(R.id.buttonAddToWatchlist);
 
-        List<Posters> posters = new ArrayList<>();
-
-        Posters the100 = new Posters();
-        the100.image = R.drawable.poster3;
-        the100.name = "Vietnam Movie";
-        the100.rating = 5f;
-        the100.createdBy = "Cuong Ngo";
-        the100.story = "This is an Vietnam Movie with a young lady";
-        posters.add(the100);
-
-        Posters chineseMovie = new Posters();
-        chineseMovie.image = R.drawable.poster4;
-        chineseMovie.name = "Chinese Movie";
-        chineseMovie.rating = 4f;
-        chineseMovie.createdBy = "Zhang San";
-        chineseMovie.story = "This is an Chinese Movie with a young lady.";
-        posters.add(chineseMovie);
-
-        Posters japanMovie = new Posters();
-        japanMovie.image = R.drawable.poster1;
-        japanMovie.name = "Japanese Movie";
-        japanMovie.rating = 3f;
-        japanMovie.createdBy = "Juzo Itami";
-        japanMovie.story = "This is an Japanese Movie.";
-        posters.add(japanMovie);
-
-        Posters americanMovie = new Posters();
-        americanMovie.image = R.drawable.poster2;
-        americanMovie.name = "American Movie";
-        americanMovie.rating = 5f;
-        americanMovie.createdBy = "Tim Burton";
-        americanMovie.story = "This is an American Movie.";
-        posters.add(americanMovie);
+        //the posters come from the shared repository
+        posterRepository = PosterRepository.getInstance(requireContext());
+        List<Posters> posters = posterRepository.getAllPosters();
 
         //connect the list to its adapter
         final PostersAdapter postersAdapter = new PostersAdapter(posters, this);
 //        final PostersAdapter postersAdapter = new PostersAdapter(posters, (posterListener) this);
         posterRecyclerView.setAdapter(postersAdapter);
+
+        //selections live in the repository and survive rotation, so button show up again
+        OnPosterAction(!postersAdapter.getSelectedPosters().isEmpty());
 
         //show the selected names
         buttonAddtoWatchList.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +49,19 @@ public class PostersFragment extends Fragment implements posterListener {
             public void onClick(View view) {
                 List<Posters> selectPosters = postersAdapter.getSelectedPosters();
 
-                StringBuilder names = new StringBuilder();
-                for (int i = 0; i<selectPosters.size();i++){
-                    if(i>0){
-                        names.append("\n");
-                    }
-                    names.append(selectPosters.get(i).name);
+                int added = posterRepository.addFavorites(selectPosters);
+
+                posterRepository.clearSelection();
+                postersAdapter.notifyDataSetChanged();
+                OnPosterAction(false);
+
+                String message;
+                if(added>0){
+                    message = getResources().getQuantityString(R.plurals.favorites_added,added,added);
+                }else {
+                    message = getString(R.string.favorites_already_added);
                 }
-                Toast.makeText(requireContext(),names.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show();
             }
         });
     }
