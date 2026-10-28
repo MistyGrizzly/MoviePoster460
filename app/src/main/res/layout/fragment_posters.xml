@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/colorBackground"
-    tools:context=".PetsFragment">
+    tools:context=".PostersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/posTersRecyclerView"
