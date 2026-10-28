@@ -8,9 +8,13 @@
         <item android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite"
             android:title="@string/nav_favorites"/>
+        <item android:id="@+id/nav_pet"
+            android:icon="@drawable/paw"
+            android:title="@string/nav_pets"/>
         <item android:id="@+id/nav_contact"
             android:icon="@drawable/ic_mail"
             android:title="@string/nav_contact"/>
+
     </group>
 
 </menu>

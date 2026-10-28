@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">Poster1019</string>
+    <string name="app_name">Movies R Us</string>
     <string name="add_to_watchlist">Add To Watchlist</string>
     <string name="posters">Posters</string>
 
     <string name="nav_main">Main Page</string>
     <string name="nav_favorites">Favorite List</string>
     <string name="nav_contact">Contact Us</string>
+    <string name="nav_pets">Pets</string>
     <string name="title_favorites">Favorite List</string>
     <string name="title_contact">Contact Us</string>
-    <string name="app_version">Version 1.0</string>
+    <string name="app_version">Version 1.1</string>
     <string name="navigation_drawer_open">Open menu</string>
     <string name="navigation_drawer_close">Close menu</string>
 
@@ -18,6 +19,8 @@
     <string name="contact_email">contact@movieposter.example</string>
     <string name="contact_email_hint">Tap to open your email app</string>
     <string name="no_email_app">No email app found</string>
+    <string name="additional_info">Additional Info</string>
+    <string name="about_me">Hello, my name is Jane, and I enjoy movies, shows, and my pets. With this app I get to show off all of them at the same time. I hope you enjoy.</string>
 
 
     <plurals name="favorites_added">

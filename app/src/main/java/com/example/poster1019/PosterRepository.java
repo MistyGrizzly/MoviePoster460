@@ -123,41 +123,50 @@ public class PosterRepository {
     private static List<Posters> createPosters() {
         List<Posters> posters = new ArrayList<>();
 
-        Posters the100 = new Posters();
-        the100.id = "vietnam";
-        the100.image = R.drawable.poster3;
-        the100.name = "Vietnam Movie";
-        the100.rating = 5f;
-        the100.createdBy = "Cuong Ngo";
-        the100.story = "This is an Vietnam Movie with a young lady";
-        posters.add(the100);
+        Posters owlHouse = new Posters();
+        owlHouse.id = "owlHouse";
+        owlHouse.image = R.drawable.owlhouse;
+        owlHouse.name = "The Owl House";
+        owlHouse.rating = 5f;
+        owlHouse.createdBy = "Dana Terrace";
+        owlHouse.story = "Accidentally sent to the world of the Boiling Isles before a trip to summer camp, a teenage human named Luz longs to become a witch and is aided by rebellious Eda and pint-sized demon King.";
+        posters.add(owlHouse);
 
-        Posters chineseMovie = new Posters();
-        chineseMovie.id = "chinese";
-        chineseMovie.image = R.drawable.poster4;
-        chineseMovie.name = "Chinese Movie";
-        chineseMovie.rating = 4f;
-        chineseMovie.createdBy = "Zhang San";
-        chineseMovie.story = "This is an Chinese Movie with a young lady.";
-        posters.add(chineseMovie);
+        Posters avatarAang = new Posters();
+        avatarAang.id = "avatarAang";
+        avatarAang.image = R.drawable.avataraang;
+        avatarAang.name = "Avatar Aang: The Last Airbender";
+        avatarAang.rating = 4f;
+        avatarAang.createdBy = "Bryan Konietzko and Michael Dante DiMartino";
+        avatarAang.story = "Avatar Aang, the world's last Airbender, learns of a power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands.";
+        posters.add(avatarAang);
 
-        Posters japanMovie = new Posters();
-        japanMovie.id = "japanese";
-        japanMovie.image = R.drawable.poster1;
-        japanMovie.name = "Japanese Movie";
-        japanMovie.rating = 3f;
-        japanMovie.createdBy = "Juzo Itami";
-        japanMovie.story = "This is an Japanese Movie.";
-        posters.add(japanMovie);
+        Posters stevenUniverse = new Posters();
+        stevenUniverse.id = "stevenUniverse";
+        stevenUniverse.image = R.drawable.stevenuniverse;
+        stevenUniverse.name = "Steven Universe: The Movie";
+        stevenUniverse.rating = 4f;
+        stevenUniverse.createdBy = "Rebecca Sugar";
+        stevenUniverse.story = "Steven thinks his time defending Earth is over, but when a new threat comes to Beach City, Steven faces his biggest challenge yet.";
+        posters.add(stevenUniverse);
 
-        Posters americanMovie = new Posters();
-        americanMovie.id = "american";
-        americanMovie.image = R.drawable.poster2;
-        americanMovie.name = "American Movie";
-        americanMovie.rating = 5f;
-        americanMovie.createdBy = "Tim Burton";
-        americanMovie.story = "This is an American Movie.";
-        posters.add(americanMovie);
+        Posters totoro = new Posters();
+        totoro.id = "totoro";
+        totoro.image = R.drawable.totoro;
+        totoro.name = "My Neighbor Totoro";
+        totoro.rating = 5f;
+        totoro.createdBy = "Hayao Miyazaki";
+        totoro.story = "When two girls move to the country to be near their ailing mother, they have adventures with the wondrous forest spirits who live nearby.";
+        posters.add(totoro);
+
+        Posters arcane = new Posters();
+        arcane.id = "arcane";
+        arcane.image = R.drawable.arcane;
+        arcane.name = "Arcane";
+        arcane.rating = 5f;
+        arcane.createdBy = "Christian Linke and Alex Yee";
+        arcane.story = "Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.";
+        posters.add(arcane);
 
         return posters;
 
