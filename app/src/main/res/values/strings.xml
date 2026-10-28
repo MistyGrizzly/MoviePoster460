@@ -9,6 +9,7 @@
     <string name="nav_pets">Pets</string>
     <string name="title_favorites">Favorite List</string>
     <string name="title_contact">Contact Us</string>
+    <string name="title_pets">Pets List</string>
     <string name="app_version">Version 1.1</string>
     <string name="navigation_drawer_open">Open menu</string>
     <string name="navigation_drawer_close">Close menu</string>

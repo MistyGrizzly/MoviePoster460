@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_PAGE_MAIN = "page_main";
     private static final String TAG_PAGE_FAVORITES = "page_favorites";
     private static final String TAG_PAGE_CONTACT = "page_contact";
+    private static final String TAG_PAGE_PETS = "page_pets";
 
     //drawer the side menu inside it, and the bottom bar.
     private DrawerLayout drawerLayout;
@@ -113,11 +114,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // adding fragment container for new pets page
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragmentContainer, new PostersFragment(), TAG_PAGE_MAIN)
                     .add(R.id.fragmentContainer, new FavoritesFragment(), TAG_PAGE_FAVORITES)
                     .add(R.id.fragmentContainer, new ContactFragment(), TAG_PAGE_CONTACT)
+                    .add(R.id.fragmentContainer, new PetsFragment(), TAG_PAGE_PETS)
                     .commitNow();
         } else {
             currentPageId = savedInstanceState.getInt(KEY_CURRENT_PAGE, R.id.nav_main);
@@ -129,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         posterRepository.addFavoritesListener(favoritesBadgeListener);
         updateFavoritesBadge();
 
-        petsRepository = PetsRepository.getInstance(this);
     }
 
     @Override
@@ -150,10 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Show this page's Fragment and hide the other two. show/hide (instead of
         // replace) keeps each page alive, with its scroll position and selections.
+        // Added pets fragment to list
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         String visibleTag = tagForPage(pageId);
-        for (String tag : new String[]{TAG_PAGE_MAIN, TAG_PAGE_FAVORITES, TAG_PAGE_CONTACT}) {
+        for (String tag : new String[]{TAG_PAGE_MAIN, TAG_PAGE_FAVORITES, TAG_PAGE_PETS, TAG_PAGE_CONTACT}) {
             Fragment page = fragmentManager.findFragmentByTag(tag);
             if (page == null) {
                 continue;
@@ -178,21 +181,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Toolbar title for each page.
+    // Added title for pets page
     private int titleForPage(int pageId) {
         if (pageId == R.id.nav_favorites) {
             return R.string.title_favorites;
         } else if (pageId == R.id.nav_contact) {
             return R.string.title_contact;
+        } else if (pageId == R.id.nav_pet){
+            return R.string.title_pets;
         }
         return R.string.posters;
     }
 
     //Which Fragment tag belongs to a page.
+    // Added fragment tag for pets page
     private String tagForPage(int pageId) {
         if (pageId == R.id.nav_favorites) {
             return TAG_PAGE_FAVORITES;
         } else if (pageId == R.id.nav_contact) {
             return TAG_PAGE_CONTACT;
+        } else if (pageId == R.id.nav_pet){
+            return TAG_PAGE_PETS;
         }
         return TAG_PAGE_MAIN;
     }
