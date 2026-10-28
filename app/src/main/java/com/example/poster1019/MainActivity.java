@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private PosterRepository posterRepository;
     private final PosterRepository.FavoritesListener favoritesBadgeListener = this::updateFavoritesBadge;
 
+    private PetsRepository petsRepository;
+
     private void updateFavoritesBadge() {
 
         int count = posterRepository.getFavoriteCount();
@@ -126,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
         posterRepository = PosterRepository.getInstance(this);
         posterRepository.addFavoritesListener(favoritesBadgeListener);
         updateFavoritesBadge();
+
+        petsRepository = PetsRepository.getInstance(this);
     }
 
     @Override

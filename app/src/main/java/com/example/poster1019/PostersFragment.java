@@ -37,7 +37,7 @@ public class PostersFragment extends Fragment implements posterListener {
 
         //connect the list to its adapter
         final PostersAdapter postersAdapter = new PostersAdapter(posters, this);
-//        final PostersAdapter postersAdapter = new PostersAdapter(posters, (posterListener) this);
+        //final PostersAdapter postersAdapter = new PostersAdapter(posters, (posterListener) this);
         posterRecyclerView.setAdapter(postersAdapter);
 
         //selections live in the repository and survive rotation, so button show up again
